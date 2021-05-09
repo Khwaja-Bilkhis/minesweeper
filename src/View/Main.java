@@ -159,6 +159,10 @@ class Minesweeper extends MouseAdapter implements ActionListener {
   public void actionPerformed(ActionEvent e) {
     JButton btn_pressed=(JButton)e.getSource();
 
+    if(btn_pressed.getBackground().equals(Color.red)){
+      return;
+    }
+
     int btn_num=Integer.parseInt(btn_pressed.getName());
     int n=board.overlap.length;
     int i=btn_num/n;
@@ -180,8 +184,11 @@ class Minesweeper extends MouseAdapter implements ActionListener {
           }
           buttons[p * n + q].setEnabled(false);
 
+
         }
       }
+
+
 
 
 
@@ -212,6 +219,7 @@ class Minesweeper extends MouseAdapter implements ActionListener {
         }
       }
       game_sta.setText("Congos! You Won. Flags:");
+      f.setEnabled(false);
 
 
     }
@@ -220,19 +228,24 @@ class Minesweeper extends MouseAdapter implements ActionListener {
   }
   @Override
   public void mouseClicked(MouseEvent e) {
+
     JButton btn_pressed=(JButton)e.getSource();
-    if(SwingUtilities.isRightMouseButton(e)){
-      if(btn_pressed.getBackground().equals(Color.gray)){
-        btn_pressed.setBackground(Color.red);
-        int num=Integer.parseInt(flags.getText());
-        flags.setText(""+(num-1));
-        btn_pressed.setEnabled(false);
-      }else{
-        btn_pressed.setBackground(Color.gray);
-        btn_pressed.setEnabled(true);
-        int num=Integer.parseInt(flags.getText());
-        flags.setText(""+(num+1));
-      }
+
+      if (SwingUtilities.isRightMouseButton(e)&&btn_pressed.isEnabled()==true) {
+
+
+        if (btn_pressed.getBackground().equals(Color.gray)) {
+          btn_pressed.setBackground(Color.red);
+          int num = Integer.parseInt(flags.getText());
+          flags.setText("" + (num - 1));
+          ;
+        } else {
+          btn_pressed.setBackground(Color.gray);
+
+          int num = Integer.parseInt(flags.getText());
+          flags.setText("" + (num + 1));
+        }
+
     }
   }
 
